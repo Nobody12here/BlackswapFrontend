@@ -1,72 +1,38 @@
-import { useEffect, useState } from 'react';
-import { ArrowDownCircle } from 'lucide-react';
-import { readContract } from 'wagmi/actions';
-import TokenModal from './TokenModal';
-import { config } from '../config';
-import { UniswapV2RouterABI, UniswapV2RouterAdderss, WETHAddress } from '../ABI/UniswapV2Router';
-import { formatEther, parseEther, parseUnits } from 'viem';
-
-interface TokenInfo {
-  address: string;
-  symbol: string;
-  name: string;
-  balance: string;
-  totalSupply: string;
-}
-
+import { useEffect, useState } from "react";
+import { ArrowDownCircle } from "lucide-react";
+import TokenModal from "./TokenModal";
+import { parseEther } from "viem";
+import { TokenInfo } from "../interface";
+import { useTokenSwap } from "../hooks/swap";
 const SwapCard = () => {
   const [showTokenModal, setShowTokenModal] = useState(false);
-  const [modalType, setModalType] = useState<'from' | 'to'>('from');
-  const [fromTokenAmount, setFromTokenAmount] = useState(0);
-  const [toTokenAmount, setToTokenAmount] = useState(0);
+  const [modalType, setModalType] = useState<"from" | "to">("from");
+  const {
+    fromToken,
+    toToken,
+    fromTokenAmount,
+    toTokenAmount,
+    setFromToken,
+    setToToken,
+    setFromTokenAmount,
+    setToTokenAmount,
+    fetchAmountsOut,
+    handleSwap,
+    executeSwap,
+  } = useTokenSwap();
 
-  const [fromToken, setFromToken] = useState<TokenInfo>({
-    address: '0x0000000000000000000000000000000000000000',
-    symbol: 'BXN',
-    name: 'Ethereum',
-    balance: '0.0',
-    totalSupply: '∞'
-  });
-  const [toToken, setToToken] = useState<TokenInfo>();
-
-  const handleOpenModal = (type: 'from' | 'to') => {
+  const handleOpenModal = (type: "from" | "to") => {
     setModalType(type);
     setShowTokenModal(true);
   };
-  const handleSwap = () => {
-    const temp = fromToken;
-    if (toToken) {
-      setFromToken(toToken);
-    }
-    setToToken(temp);
-  }
+
   const handleSelectToken = (token: TokenInfo) => {
-    if (modalType === 'from') {
+    if (modalType === "from") {
       setFromToken(token);
     } else {
       setToToken(token);
     }
   };
-  async function fetchAmountsOut(amountsIn: bigint) {
-    try {
-      if (toToken) {
-        const path =toToken.symbol ==="BXN"? [fromToken.address,WETHAddress] : [WETHAddress,toToken.address]
-        const result = await readContract(config, {
-          abi: UniswapV2RouterABI,
-          address: UniswapV2RouterAdderss,
-          functionName: "getAmountsOut",
-          args: [amountsIn, path]
-        })
-        if (Array.isArray(result) && typeof result[1] === "bigint") {
-
-          setToTokenAmount(parseFloat(formatEther(result[1])))
-        }
-      }
-    } catch (error) {
-      console.log(error)
-      alert("Error occured while fetching amounts out")
-    }
-  }
   useEffect(() => {
     if (fromTokenAmount) {
       fetchAmountsOut(parseEther(fromTokenAmount.toString()));
@@ -81,12 +47,14 @@ const SwapCard = () => {
             <input
               type="number"
               value={fromTokenAmount}
-              onChange={(e) => { setFromTokenAmount(parseFloat(e.target.value)) }}
+              onChange={(e) => {
+                setFromTokenAmount(parseFloat(e.target.value));
+              }}
               placeholder="0.0"
               className="bg-transparent text-3xl text-white outline-none w-[60%] placeholder-gray-500"
             />
             <button
-              onClick={() => handleOpenModal('from')}
+              onClick={() => handleOpenModal("from")}
               className="flex items-center space-x-2 bg-white bg-opacity-10 hover:bg-opacity-20 transition-all px-4 py-2 rounded-2xl"
             >
               <img
@@ -94,7 +62,9 @@ const SwapCard = () => {
                 alt="ETH"
                 className="w-6 h-6 rounded-full"
               />
-              <span className="text-white font-medium">{fromToken.symbol}</span>
+              <span className="text-white font-medium">
+                {fromToken?.symbol}
+              </span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -115,7 +85,10 @@ const SwapCard = () => {
       </div>
 
       <div className="flex justify-center -my-3 z-10">
-        <div onClick={handleSwap} className="bg-white bg-opacity-5 p-2 rounded-xl cursor-pointer hover:bg-opacity-10 transition-all">
+        <div
+          onClick={handleSwap}
+          className="bg-white bg-opacity-5 p-2 rounded-xl cursor-pointer hover:bg-opacity-10 transition-all"
+        >
           <ArrowDownCircle className="text-primary h-6 w-6" />
         </div>
       </div>
@@ -127,23 +100,31 @@ const SwapCard = () => {
             <input
               type="number"
               value={toTokenAmount}
-              onChange={(e) => { setToTokenAmount(parseFloat(e.target.value)) }}
+              onChange={(e) => {
+                setToTokenAmount(parseFloat(e.target.value));
+              }}
               placeholder="0.0"
               className="bg-transparent text-3xl text-white outline-none w-[60%] placeholder-gray-500"
             />
             <button
-              onClick={() => handleOpenModal('to')}
+              onClick={() => handleOpenModal("to")}
               className="flex items-center space-x-2 bg-[#FF1CF7] bg-opacity-10 hover:bg-opacity-20 transition-all px-4 py-2 rounded-2xl"
             >
               {toToken ? (
                 <>
                   <div className="w-6 h-6 rounded-full bg-[#FF1CF7] bg-opacity-10 flex items-center justify-center">
-                    <span className="text-[#FF1CF7] font-semibold">{toToken.symbol[0]}</span>
+                    <span className="text-[#FF1CF7] font-semibold">
+                      {toToken.symbol[0]}
+                    </span>
                   </div>
-                  <span className="text-[#FF1CF7] font-medium">{toToken.symbol}</span>
+                  <span className="text-[#FF1CF7] font-medium">
+                    {toToken.symbol}
+                  </span>
                 </>
               ) : (
-                <span className="text-[#FF1CF7] font-medium">Select a token</span>
+                <span className="text-[#FF1CF7] font-medium">
+                  Select a token
+                </span>
               )}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -164,10 +145,12 @@ const SwapCard = () => {
         </div>
       </div>
 
-      <button className="w-full bg-[#FF1CF7] hover:bg-opacity-90 text-white font-semibold py-4 px-4 rounded-2xl transition-all">
-        Connect Wallet
+      <button
+        onClick={() => executeSwap()}
+        className="w-full bg-[#FF1CF7] hover:bg-opacity-90 text-white font-semibold py-4 px-4 rounded-2xl transition-all"
+      >
+        Swap Tokens
       </button>
-
       <TokenModal
         isOpen={showTokenModal}
         onClose={() => setShowTokenModal(false)}
