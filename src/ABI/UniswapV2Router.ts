@@ -1,4 +1,5 @@
 export const UniswapV2RouterAdderss = "0xD422FEF15117cE33ea2337DB5e10439C9b1C29F7"
+export const WETHAddress = "0x1B3FAEFe54ddFF09A6aD467071B08176B520eA65"
 export const UniswapV2RouterABI = [
     {
         "type": "constructor",

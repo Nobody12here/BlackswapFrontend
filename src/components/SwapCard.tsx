@@ -1,6 +1,10 @@
-import  { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowDownCircle } from 'lucide-react';
+import { readContract } from 'wagmi/actions';
 import TokenModal from './TokenModal';
+import { config } from '../config';
+import { UniswapV2RouterABI, UniswapV2RouterAdderss, WETHAddress } from '../ABI/UniswapV2Router';
+import { formatEther, parseEther, parseUnits } from 'viem';
 
 interface TokenInfo {
   address: string;
@@ -13,6 +17,9 @@ interface TokenInfo {
 const SwapCard = () => {
   const [showTokenModal, setShowTokenModal] = useState(false);
   const [modalType, setModalType] = useState<'from' | 'to'>('from');
+  const [fromTokenAmount, setFromTokenAmount] = useState(0);
+  const [toTokenAmount, setToTokenAmount] = useState(0);
+
   const [fromToken, setFromToken] = useState<TokenInfo>({
     address: '0x0000000000000000000000000000000000000000',
     symbol: 'BXN',
@@ -20,13 +27,19 @@ const SwapCard = () => {
     balance: '0.0',
     totalSupply: '∞'
   });
-  const [toToken, setToToken] = useState<TokenInfo | null>(null);
+  const [toToken, setToToken] = useState<TokenInfo>();
 
   const handleOpenModal = (type: 'from' | 'to') => {
     setModalType(type);
     setShowTokenModal(true);
   };
-
+  const handleSwap = () => {
+    const temp = fromToken;
+    if (toToken) {
+      setFromToken(toToken);
+    }
+    setToToken(temp);
+  }
   const handleSelectToken = (token: TokenInfo) => {
     if (modalType === 'from') {
       setFromToken(token);
@@ -34,7 +47,31 @@ const SwapCard = () => {
       setToToken(token);
     }
   };
+  async function fetchAmountsOut(amountsIn: bigint) {
+    try {
+      if (toToken) {
+        const path =toToken.symbol ==="BXN"? [fromToken.address,WETHAddress] : [WETHAddress,toToken.address]
+        const result = await readContract(config, {
+          abi: UniswapV2RouterABI,
+          address: UniswapV2RouterAdderss,
+          functionName: "getAmountsOut",
+          args: [amountsIn, path]
+        })
+        if (Array.isArray(result) && typeof result[1] === "bigint") {
 
+          setToTokenAmount(parseFloat(formatEther(result[1])))
+        }
+      }
+    } catch (error) {
+      console.log(error)
+      alert("Error occured while fetching amounts out")
+    }
+  }
+  useEffect(() => {
+    if (fromTokenAmount) {
+      fetchAmountsOut(parseEther(fromTokenAmount.toString()));
+    }
+  }, [toToken, fromTokenAmount]);
   return (
     <div className="space-y-6">
       <div className="space-y-1">
@@ -43,6 +80,8 @@ const SwapCard = () => {
           <div className="flex justify-between items-center">
             <input
               type="number"
+              value={fromTokenAmount}
+              onChange={(e) => { setFromTokenAmount(parseFloat(e.target.value)) }}
               placeholder="0.0"
               className="bg-transparent text-3xl text-white outline-none w-[60%] placeholder-gray-500"
             />
@@ -68,15 +107,15 @@ const SwapCard = () => {
                 strokeLinejoin="round"
                 className="text-gray-400"
               >
-                <path d="m6 9 6 6 6-6"/>
+                <path d="m6 9 6 6 6-6" />
               </svg>
             </button>
           </div>
         </div>
       </div>
-      
+
       <div className="flex justify-center -my-3 z-10">
-        <div className="bg-white bg-opacity-5 p-2 rounded-xl cursor-pointer hover:bg-opacity-10 transition-all">
+        <div onClick={handleSwap} className="bg-white bg-opacity-5 p-2 rounded-xl cursor-pointer hover:bg-opacity-10 transition-all">
           <ArrowDownCircle className="text-primary h-6 w-6" />
         </div>
       </div>
@@ -87,6 +126,8 @@ const SwapCard = () => {
           <div className="flex justify-between items-center">
             <input
               type="number"
+              value={toTokenAmount}
+              onChange={(e) => { setToTokenAmount(parseFloat(e.target.value)) }}
               placeholder="0.0"
               className="bg-transparent text-3xl text-white outline-none w-[60%] placeholder-gray-500"
             />
@@ -116,7 +157,7 @@ const SwapCard = () => {
                 strokeLinejoin="round"
                 className="text-[#FF1CF7]"
               >
-                <path d="m6 9 6 6 6-6"/>
+                <path d="m6 9 6 6 6-6" />
               </svg>
             </button>
           </div>
