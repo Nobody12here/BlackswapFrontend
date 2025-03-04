@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { TokenInfo } from "../interface";
 import { config } from "../config";
-import { formatEther, parseEther, parseUnits } from "viem";
+import { Address, erc20Abi, formatEther, parseEther, parseUnits } from "viem";
 import {
   readContract,
   waitForTransactionReceipt,
@@ -73,6 +73,30 @@ export function useTokenSwap() {
     },
     [toToken, fromToken, toTokenAmount, fromTokenAmount]
   );
+  const approveTokens = async () => {
+    if (!fromToken || !toToken || !address) return;
+    const tokenAddress =
+      fromToken.symbol === "BXN"
+        ? (toToken.address as Address)
+        : (fromToken.address as Address);
+    const amountsIn = parseEther(fromTokenAmount.toString());
+    const approvedTokens = await readContract(config, {
+      abi: erc20Abi,
+      address: tokenAddress,
+      functionName: "allowance",
+      args: [address, UniswapV2RouterAdderss],
+    });
+    if (approvedTokens < amountsIn) {
+      const hash = await writeContract(config, {
+        abi: erc20Abi,
+        address: tokenAddress,
+        functionName: "approve",
+        args: [UniswapV2RouterAdderss, amountsIn],
+      });
+      await waitForTransactionReceipt(config, { hash });
+    }
+    // aprove the tokens
+  };
   const handleSwap = () => {
     const temp = fromToken;
     if (toToken) {
