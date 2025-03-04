@@ -66,7 +66,7 @@ export function useTokenSwap() {
         else if (toToken.symbol === "BXN") {
           //First check if the tokens are approved or not
           //If not the approve the tokens
-
+          await approveTokens();
           const hash = await writeContract(config, {
             abi: UniswapV2RouterABI,
             address: UniswapV2RouterAdderss,
