@@ -63,6 +63,27 @@ export function useTokenSwap() {
             hash: hash,
           });
         }
+        else if (toToken.symbol === "BXN") {
+          //First check if the tokens are approved or not
+          //If not the approve the tokens
+
+          const hash = await writeContract(config, {
+            abi: UniswapV2RouterABI,
+            address: UniswapV2RouterAdderss,
+            functionName: "swapExactTokensForETH",
+            args: [
+              amountIn,
+              minimumOut,
+              path,
+              address,
+              deadline
+            ]
+          })
+          setTxHash(hash);
+          await waitForTransactionReceipt(config, {
+            hash
+          })
+        }
         return true;
       } catch (error) {
         console.error(error);
