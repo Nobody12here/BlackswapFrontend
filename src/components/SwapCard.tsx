@@ -4,7 +4,7 @@ import { readContract } from 'wagmi/actions';
 import TokenModal from './TokenModal';
 import { config } from '../config';
 import { UniswapV2RouterABI, UniswapV2RouterAdderss, WETHAddress } from '../ABI/UniswapV2Router';
-import { formatEther, parseEther, parseUnits } from 'viem';
+import { formatEther, parseEther } from 'viem';
 
 interface TokenInfo {
   address: string;
