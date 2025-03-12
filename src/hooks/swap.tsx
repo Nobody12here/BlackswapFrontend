@@ -25,11 +25,11 @@ export function useTokenSwap() {
   const [fromToken, setFromToken] = useState<TokenInfo | null>({
     address: "0x0000000000000000000000000000000000000000",
     symbol: "BXN",
-    name: "Ethereum",
+    name: "BlackFort Token",
     balance: "0.0",
     totalSupply: "∞",
   });
-  const [toToken, setToToken] = useState<TokenInfo | null>();
+  const [toToken, setToToken] = useState<TokenInfo | null>(null);
   const executeSwap = useCallback(
     async (
       slippageTolerance: number = 0.5,
@@ -76,7 +76,7 @@ export function useTokenSwap() {
               minimumOut,
               path,
               address,
-              deadline
+              deadlineTimestamp
             ]
           })
           setTxHash(hash);

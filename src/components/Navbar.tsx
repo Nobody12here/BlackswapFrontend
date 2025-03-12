@@ -1,4 +1,4 @@
-import { Wallet2, Menu } from 'lucide-react';
+import { Wallet2 } from 'lucide-react';
 import { useAccount, useConnect } from 'wagmi';
 import { metaMask } from 'wagmi/connectors';
 
@@ -9,8 +9,8 @@ const Navbar = () => {
     <nav className="bg-secondary px-6 py-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-2">
-          <Menu className="text-primary h-6 w-6 cursor-pointer" />
-          <span className="text-white text-xl font-bold">UniSwap Clone</span>
+         
+          <span className="text-white text-xl font-bold">BlackSwap</span>
         </div>
 
         <button onClick={() => { connect({ connector: metaMask() }) }} className="flex items-center space-x-2 bg-primary px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors">

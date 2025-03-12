@@ -112,7 +112,7 @@ const LiquidityCard = () => {
               className="flex items-center space-x-2 bg-white bg-opacity-10 hover:bg-opacity-20 transition-all px-4 py-2 rounded-2xl"
             >
               <img
-                src="https://raw.githubusercontent.com/Uniswap/interface/main/src/assets/images/ethereum-logo.png"
+                src="https://s2.coinmarketcap.com/static/img/coins/64x64/25963.png"
                 alt="ETH"
                 className="w-6 h-6 rounded-full"
               />
@@ -164,7 +164,7 @@ const LiquidityCard = () => {
                   <span className="text-[#FF1CF7] font-medium">{secondToken.symbol}</span>
                 </>
               ) : (
-                <span className="text-[#FF1CF7] font-medium">Select a token</span>
+                <span className="w-full text-[#FF1CF7] font-medium">Select token</span>
               )}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
