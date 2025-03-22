@@ -55,7 +55,7 @@ const Boxes = () => {
               </div>
             </div>
 
-            <div className="space-y-2 p-5 md:p-8">
+            {/* <div className="space-y-2 p-5 md:p-8">
               <div className="p-4 rounded-[20px] flex items-center gap-2 md:gap-4 bg-white dark:bg-[#131313]">
                 <img
                   src={ETH}
@@ -158,7 +158,7 @@ const Boxes = () => {
                   <span className="text-[#21c95e] hidden md:block">4.67%</span>
                 </div>
               </div>
-            </div>
+            </div> */}
           </a>
 
           <a href="#" className="bg-[#fc72ff1f] rounded-[32px]">
@@ -178,26 +178,25 @@ const Boxes = () => {
               </div>
             </div>
 
-            <div>
+            {/* <div>
               <img
                 src={UnswipWallet}
                 alt="img"
                 loading="lazy"
                 className="-mt-10 md:-mt-16"
               />
-            </div>
+            </div> */}
           </a>
 
           <a
             href="#"
-            className="bg-[#00C3A0] bg-opacity-[0.08] h-52 md:h-[340px] rounded-[32px] flex flex-col justify-between relative"
+            className="bg-[#00C3A0] bg-opacity-[0.08] min-h-[200px] md:min-h-[340px] rounded-[32px] flex flex-col justify-between relative p-5 md:p-8"
           >
-            <div className="relative z-40 p-5 md:p-8 h-full">
+            <div className="relative z-40">
               <div className="max-w-[380px] w-full">
-                <p className="text-2xl font-normal mb-1">
+                <p className="text-2xl  font-normal mb-1">
                   Fast and Cost-Effective Transactions
                 </p>
-
                 <h3 className="text-[#00C3A0] text-lg font-light">
                   Experience quick trades with minimal fees on Blackswap,
                   powered by Blackfort's high transaction throughput and
@@ -205,15 +204,6 @@ const Boxes = () => {
                   efficient trading, making it ideal for frequent traders.
                 </h3>
               </div>
-            </div>
-
-            <div className="absolute inset-0 hidden md:block">
-              <img
-                src={DocsBg}
-                alt="img"
-                loading="lazy"
-                className="w-full h-full object-cover"
-              />
             </div>
           </a>
 
@@ -233,14 +223,14 @@ const Boxes = () => {
               </h3>
             </div>
 
-            <div className="absolute inset-0 hidden md:block">
+            {/* <div className="absolute inset-0 hidden md:block">
               <img
                 src={LiquidityBg}
                 alt="img"
                 loading="lazy"
                 className="w-full h-full object-cover"
               />
-            </div>
+            </div> */}
           </a>
         </div>
       </div>

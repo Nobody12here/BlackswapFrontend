@@ -76,7 +76,7 @@ const ConnectUs = () => {
               hover={hoverStates.message}
             />
             <h3 className="text-[#fc72ff] text-2xl">
-              Follow @Uniswap on X for the latest updates
+              Follow @Blackfort on X for the latest updates
             </h3>
           </div>
         </div>

@@ -10,7 +10,7 @@ const Trusted = () => {
           </h1>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        {/* <div className="grid grid-cols-2 gap-4">
           <div className="enBGrV bg-[#f9f9f9] dark:bg-[#1b1b1b] flex flex-col justify-between min-h-[230px] h-full p-5 md:p-8 rounded-[20px]">
             <h3 className="text-[#9b9b9b] font-medium text-xl">
               All time volume
@@ -24,7 +24,7 @@ const Trusted = () => {
             </h3>
             <h2 className="font-normal text-4xl lg:text-6xl relative">$2.2T</h2>
           </div>
-        </div>
+        </div> */}
 
         <div className="flex flex-col items-start justify-end gap-6 order-4 md:order-3">
           <p className="text-base font-medium max-w-[470px] w-full mt-4">
@@ -43,7 +43,7 @@ const Trusted = () => {
           </a>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 order-3 md:order-4">
+        {/* <div className="grid grid-cols-2 gap-4 order-3 md:order-4">
           <div className="enBGrV bg-[#f9f9f9] dark:bg-[#1b1b1b] flex flex-col justify-between min-h-[230px] h-full p-5 md:p-8 rounded-[20px]">
             <h3 className="text-[#9b9b9b] font-medium text-xl">
               All time LP fees
@@ -62,7 +62,7 @@ const Trusted = () => {
               $781.1M
             </h2>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

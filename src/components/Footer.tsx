@@ -141,7 +141,7 @@ const Footer = () => {
       <div className="h-[1px] w-full bg-black dark:bg-white bg-opacity-10"></div>
 
       <div className="flex justify-between flex-col md:flex-row">
-        <div className="text-base font-normal">© 2024 - Uniswap Labs</div>
+        <div className="text-base font-normal">© 2025 - Blackswap</div>
 
         <div className="flex gap-4">
             <a href="#" className="text-[#7d7d7d] text-base font-light">Trademark Policy</a>
