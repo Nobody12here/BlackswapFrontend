@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { ArrowDownCircle } from "lucide-react";
+import { IoArrowDownOutline } from "react-icons/io5";
+
 import TokenModal from "./TokenModal";
 import { parseEther } from "viem";
 import { TokenInfo } from "../interface";
@@ -44,7 +45,7 @@ const SwapCard = () => {
   }, [toToken, fromTokenAmount]);
 
   return (
-    <div className="space-y-6">
+    <div className="relative">
       {/* From Token Input */}
       <TokenInput
         label="From"
@@ -58,9 +59,9 @@ const SwapCard = () => {
       <div className="flex justify-center -my-3 z-10">
         <div
           onClick={handleSwap}
-          className="bg-white bg-opacity-5 p-2 rounded-xl cursor-pointer hover:bg-opacity-10 transition-all"
+          className="p-2 rounded-2xl border-[4px] border-white dark:border-[#131313] bg-[#f9f9f9] dark:bg-[#1b1b1b] cursor-pointer"
         >
-          <ArrowDownCircle className="text-primary h-6 w-6" />
+          <IoArrowDownOutline size={22} />
         </div>
       </div>
 
@@ -77,7 +78,7 @@ const SwapCard = () => {
       {/* Swap Button */}
       <button
         onClick={() => executeSwap()}
-        className="w-full bg-[#FF1CF7] hover:bg-opacity-90 text-white font-semibold py-4 px-4 rounded-2xl transition-all"
+        className="w-full bg-[#fef4ff] dark:bg-[#361a37] hover:bg-opacity-80 text-[#fc72ff] font-medium p-4 rounded-2xl transition-all duration-300 mt-4"
       >
         Swap Tokens
       </button>

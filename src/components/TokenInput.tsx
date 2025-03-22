@@ -1,5 +1,6 @@
 import React from "react";
 import { TokenInfo } from "../interface";
+import { FaChevronDown } from "react-icons/fa6";
 
 interface TokenInputProps {
   label: string;
@@ -19,45 +20,38 @@ const TokenInput: React.FC<TokenInputProps> = ({
   highlightColor = "text-white",
 }) => {
   return (
-    <div className="space-y-1">
-      <label className="text-gray-400 text-sm ml-1">{label}</label>
-      <div className="bg-white bg-opacity-5 rounded-2xl p-4">
-        <div className="flex justify-between items-center">
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => onAmountChange(parseFloat(e.target.value))}
-            placeholder="0.0"
-            className="bg-transparent text-3xl text-white outline-none w-[60%] placeholder-gray-500"
-          />
-          <button
-            onClick={onSelectToken}
-            className={`flex items-center space-x-2 bg-white bg-opacity-10 hover:bg-opacity-20 transition-all px-4 py-2 rounded-2xl ${highlightColor}`}
-          >
-            {token?.symbol === "BXN" && (
-              <img
-                src="https://s2.coinmarketcap.com/static/img/coins/64x64/25963.png"
-                alt="BXN"
-                className="w-6 h-6 rounded-full"
-              />
-            )}
-            <span className="font-medium">{token ? token.symbol : "Select Token"}</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-gray-400"
-            >
-              <path d="m6 9 6 6 6-6" />
-            </svg>
-          </button>
-        </div>
+    <div className="p-3 border border-black/10 dark:border-white/10 rounded-3xl">
+      <label className="text-[#9b9b9b] text-sm ml-1 mb-2 block">{label}</label>
+
+      <div className="flex items-center justify-between gap-3">
+        <input
+          type="number"
+          value={amount}
+          onChange={(e) => onAmountChange(parseFloat(e.target.value))}
+          placeholder="0.0"
+          autoComplete="off"
+          autoCapitalize="sentences"
+          autoCorrect="on"
+          inputMode="decimal"
+          spellCheck
+          className="bg-transparent text-3xl outline-none w-[60%] placeholder-gray-500"
+        />
+        <button
+          onClick={onSelectToken}
+          className={`flex items-center space-x-2 border border-black/10 dark:border-white/10 transition-all px-3 py-2 rounded-full ${highlightColor}`}
+        >
+          {token?.symbol === "BXN" && (
+            <img
+              src="https://s2.coinmarketcap.com/static/img/coins/64x64/25963.png"
+              alt="BXN"
+              className="w-6 h-6 rounded-full"
+            />
+          )}
+          <span className="font-normal text-black/80 dark:text-white">
+            {token ? token.symbol : "Select Token"}
+          </span>
+          <FaChevronDown size={14} className="text-black/50 dark:text-white/50" />
+        </button>
       </div>
     </div>
   );
