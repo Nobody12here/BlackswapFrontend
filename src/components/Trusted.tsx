@@ -28,17 +28,10 @@ const Trusted = () => {
 
         <div className="flex flex-col items-start justify-end gap-6 order-4 md:order-3">
           <p className="text-base font-medium max-w-[470px] w-full mt-4">
-<<<<<<< HEAD
             Blackswap is a gateway to the Blackfort ecosystem, which includes
             secure wallets, peyment solutions, and smart contract tools. By
             using Blackswap, you're joining a community shaping the future of
             decentralized finance.
-=======
-            Uniswap products are powered by the Uniswap Protocol. The protocol
-            is the largest onchain marketplace, with billions of dollars in
-            weekly volume across thousands of tokens on Ethereum and 7+
-            additional chains.
->>>>>>> e2cd99ba1a8ba8cf2491f808cd510f5e60006a37
           </p>
 
           <a
@@ -60,7 +53,6 @@ const Trusted = () => {
 
           <div className="hgxSoE flex flex-col justify-between min-h-[230px] h-full p-5 md:p-8 rounded-[20px]">
             <div className="flex items-center gap-1">
-<<<<<<< HEAD
               <div className="cBvfmM"></div>
               <h3 className="text-[#40b66b] font-medium text-xl relative">
                 24H volume
@@ -69,14 +61,6 @@ const Trusted = () => {
             <h2 className="text-[#40b66b] font-normal text-4xl lg:text-6xl relative">
               $781.1M
             </h2>
-=======
-                <div className="cBvfmM"></div>
-              <h3 className="text-[#40b66b] font-medium text-xl relative">
-              24H volume
-              </h3>
-            </div>
-            <h2 className="text-[#40b66b] font-normal text-4xl lg:text-6xl relative">$781.1M</h2>
->>>>>>> e2cd99ba1a8ba8cf2491f808cd510f5e60006a37
           </div>
         </div>
       </div>
