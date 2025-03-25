@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="relative bg-white dark:bg-[#131313] text-black dark:text-white">
+    <div className="relative bg-slate-300 dark:bg-[#131313] text-black dark:text-white">
       <div className="noise-bg"></div>
       <div className="min-h-screen relative">
         <Navbar />
