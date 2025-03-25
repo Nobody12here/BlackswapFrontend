@@ -4,12 +4,7 @@ const Trusted = () => {
   return (
     <section className="px-5 pb-[120px]">
       <div className="max-w-[1280px] w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <h1 className="text-4xl md:text-5xl font-medium mb-4">
-            Trusted by millions
-          </h1>
-        </div>
-
+          
         {/* <div className="grid grid-cols-2 gap-4">
           <div className="enBGrV bg-[#f9f9f9] dark:bg-[#1b1b1b] flex flex-col justify-between min-h-[230px] h-full p-5 md:p-8 rounded-[20px]">
             <h3 className="text-[#9b9b9b] font-medium text-xl">
@@ -29,7 +24,7 @@ const Trusted = () => {
         <div className="flex flex-col items-start justify-end gap-6 order-4 md:order-3">
           <p className="text-base font-medium max-w-[470px] w-full mt-4">
             Blackswap is a gateway to the Blackfort ecosystem, which includes
-            secure wallets, peyment solutions, and smart contract tools. By
+            secure wallets, payment solutions, and smart contract tools. By
             using Blackswap, you're joining a community shaping the future of
             decentralized finance.
           </p>
